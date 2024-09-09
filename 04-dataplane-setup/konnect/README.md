@@ -11,9 +11,9 @@ This script automates the process of fetching `control_plane_endpoint` and `tele
 ## Prerequisites:
 - **Helm**: Make sure Helm is installed and configured. You can install Helm by following the [official instructions](https://helm.sh/docs/intro/install/).
 - **jq**: The script uses `jq` to parse JSON responses. You can install `jq` by running:
-  ```bash
+  ```
   sudo apt-get install jq
-
+  ```
 
 ## Usage 
 ### Step 1: Clone the repository or download the script
