@@ -15,8 +15,8 @@ This script automates the process of fetching `control_plane_endpoint` and `tele
   sudo apt-get install jq
 
 
-## Usage 
-# Step 1: Clone the repository or download the script
+# Usage 
+## Step 1: Clone the repository or download the script
 
 ````
 git clone git@github.com:Kong/edu-kong-enablement.git
@@ -24,7 +24,7 @@ cd edu-kong-enablement/04-dataplane-setup/konnect
 ````
 
 
-# Step 2: Run the script
+## Step 2: Run the script
 
 The script requires three arguments:
 
@@ -38,7 +38,7 @@ To run the script, use the following syntax:
 ./deployGateway.sh <control_plane_id> <control_plane_name> <kpat_token>
 ```
 
-# Step 3: Helm Installation
+## Step 3: Helm Installation
 The script will:
 
 - Fetch the control_plane_endpoint and telemetry_endpoint values.
@@ -61,7 +61,7 @@ helm upgrade --install <your-helm-release> kong/kong \
 ```
 You can customize the Helm parameters by modifying the script directly or by passing additional options in the Helm command as needed.
 
-## Output:
+# Output:
 The script will display the fetched control_plane_endpoint and telemetry_endpoint before performing the Helm upgrade/install. For example:
 
 ```
