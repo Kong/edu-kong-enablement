@@ -1,11 +1,12 @@
 # Kong Control Plane Endpoint Fetcher & Helm Chart Installer
 
-This script automates the process of fetching `control_plane_endpoint` and `telemetry_endpoint` from the Kong API and installs/upgrades a Kong Helm chart using these dynamically retrieved values. It is particularly useful for users who want to configure Kong environments without manually entering control plane information.
+This script automates the process of fetching `control_plane_endpoint`, `telemetry_endpoint` and `control_plane_id` from the Kong API and installs/upgrades a Kong Helm chart using these dynamically retrieved values. It is particularly useful for users who want to configure Kong environments without manually entering control plane information.
 
 ## Features:
-- Fetches `control_plane_endpoint` and `telemetry_endpoint` dynamically from the Kong API.
+- Fetches `control_plane_endpoint`, `telemetry_endpoint` and `control_plane_id` dynamically from the Kong API.
 - Installs or upgrades the Kong Helm chart using these values.
-- Supports passing the `control_plane_id`, `control_plane_name` and `kpat_token` as arguments.
+- Uploads the certificate on Control Plane for securing ethe communication
+- Supports passing the `control_plane_name` and `spat_token` as arguments.
 - Strips the `https://` prefix from `control_plane_endpoint` for use in Helm configuration.
 
 ## Prerequisites:
@@ -20,28 +21,28 @@ This script automates the process of fetching `control_plane_endpoint` and `tele
 
 ````
 git clone git@github.com:Kong/edu-kong-enablement.git
-cd edu-kong-enablement/04-dataplane-setup/konnect
+cd edu-kong-enablement/04-dataplane-setup/konnect/automation
 ````
 
 
 ### Step 2: Run the script
 
-The script requires three arguments:
+The script requires two arguments:
 
-- Control Plane ID: The ID of the control plane you wish to query.
 - Control Plane Name: The Name of the control plane you wish to query.
-- kpat Token: The token for authentication with the Kong API.
+- spat Token: The token for authentication with the Kong API.
 
 To run the script, use the following syntax:
 
 ```
-./deployGateway.sh <control_plane_id> <control_plane_name> <kpat_token>
+./deployGateway.sh <control_plane_name> <spat_token>
 ```
 
 ### Step 3: Helm Installation
 The script will:
 
-- Fetch the control_plane_endpoint and telemetry_endpoint values.
+- Fetch the control_plane_endpoint, telemetry_endpoint and control_plane_id values.
+- Uploads the certificate on Control Plane for securing ethe communication
 - Install or upgrade the Kong Helm chart with the appropriate configuration.
 
 Make sure to replace the placeholders in the script for:
