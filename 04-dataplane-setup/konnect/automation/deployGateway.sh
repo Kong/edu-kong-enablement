@@ -77,7 +77,7 @@ kubectl create secret tls kong-cluster-cert -n kong-internal --cert="$CERT_PATH"
 
 
 # Use the values in the Helm chart
-helm upgrade --install my-kong kong/kong \
+helm upgrade --install my-kong-mohit kong/kong \
   --set env.cluster_control_plane=$control_plane_group_endpoint:443 \
   --set env.cluster_server_name=$control_plane_group_endpoint \
   --set env.cluster_telemetry_endpoint=$telemetry_endpoint:443 \
