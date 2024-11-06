@@ -33,5 +33,5 @@ ingressController:
 
 resources:
   requests:
-    cpu: 1
-    memory: "2Gi"
+    cpu: 100m
+    memory: "256Mi"

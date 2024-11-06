@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # Check if the Control Plane Group Name and spat token are passed as arguments
-if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <control_plane_group_name> <spat_token>"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  echo "Usage: $0 <control_plane_group_name> <region> <spat_token>"
   exit 1
 fi
 
 # Define the control plane group name and spat_token from the argument
 CONTROL_PLANE_GROUP_NAME=$1
-SPAT_TOKEN=$2
+REGION=$2
+SPAT_TOKEN=$3
 CERT_PATH="./KongAir_Internal_CP_Group_Internal.crt"  # Path to your .crt file
 KEY_PATH="./KongAir_Internal_CP_Group_Internal.key"    # Path to your .key file
 
@@ -19,7 +20,7 @@ if [ ! -f "$CERT_PATH" ] || [ ! -f "$KEY_PATH" ]; then
 fi
 
 # Define the API URL with parameterized control plane group ID
-API_URL="https://eu.api.konghq.com/v2/control-planes/?filter%5Bname%5D=$CONTROL_PLANE_GROUP_NAME"
+API_URL="https://$REGION.api.konghq.com/v2/control-planes/?filter%5Bname%5D=$CONTROL_PLANE_GROUP_NAME"
 
 # Define the authorization token
 AUTH_TOKEN="$SPAT_TOKEN"
@@ -47,7 +48,7 @@ echo "Control Plane Group ID: $control_plane_group_id"
 CERT_CONTENT=$(awk '{printf "%s\\n", $0}' "$CERT_PATH")
 
 # Post the client certificate to the Kong API
-CERTIFICATE_POST_URL="https://eu.api.konghq.com/v2/control-planes/${control_plane_group_id}/dp-client-certificates"
+CERTIFICATE_POST_URL="https://$REGION.api.konghq.com/v2/control-planes/${control_plane_group_id}/dp-client-certificates"
 
 curl --request POST \
   --url "$CERTIFICATE_POST_URL" \
@@ -76,7 +77,7 @@ kubectl create secret tls kong-cluster-cert -n kong-internal --cert="$CERT_PATH"
 
 
 # Use the values in the Helm chart
-helm upgrade --install my-kong kong/kong \
+helm upgrade --install my-kong-mohit kong/kong \
   --set env.cluster_control_plane=$control_plane_group_endpoint:443 \
   --set env.cluster_server_name=$control_plane_group_endpoint \
   --set env.cluster_telemetry_endpoint=$telemetry_endpoint:443 \
