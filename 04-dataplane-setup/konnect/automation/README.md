@@ -6,7 +6,7 @@ This script automates the process of fetching `control_plane_endpoint`, `telemet
 - Fetches `control_plane_endpoint`, `telemetry_endpoint` and `control_plane_id` dynamically from the Kong API.
 - Installs or upgrades the Kong Helm chart using these values.
 - Uploads the certificate on Control Plane for securing ethe communication
-- Supports passing the `control_plane_name` and `spat_token` as arguments.
+- Supports passing the `control_plane_name`, `region` and `spat_token` as arguments.
 - Strips the `https://` prefix from `control_plane_endpoint` for use in Helm configuration.
 
 ## Prerequisites:
@@ -30,12 +30,13 @@ cd edu-kong-enablement/04-dataplane-setup/konnect/automation
 The script requires two arguments:
 
 - Control Plane Name: The Name of the control plane you wish to query.
+- Region: The Region where you want to deploy the Data Plane.
 - spat Token: The token for authentication with the Kong API.
 
 To run the script, use the following syntax:
 
 ```
-./deployGateway.sh <control_plane_name> <spat_token>
+./deployGateway.sh <control_plane_name> <region> <spat_token>
 ```
 
 ### Step 3: Helm Installation
