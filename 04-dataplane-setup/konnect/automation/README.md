@@ -6,7 +6,7 @@ This script automates the process of fetching `control_plane_endpoint`, `telemet
 - Fetches `control_plane_endpoint`, `telemetry_endpoint` and `control_plane_id` dynamically from the Kong API.
 - Installs or upgrades the Kong Helm chart using these values.
 - Uploads the certificate on Control Plane for securing ethe communication
-- Supports passing the `control_plane_name`, `region` and `spat_token` as arguments.
+- Supports passing the `control_plane_name`, `region` and `spat_token` as arguments. The possible options of region are be us,eu and au.
 - Strips the `https://` prefix from `control_plane_endpoint` for use in Helm configuration.
 
 ## Prerequisites:

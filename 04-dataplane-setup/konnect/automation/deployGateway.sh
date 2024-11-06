@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Check if the Control Plane Group Name and spat token are passed as arguments
+# Check if the Control Plane Group Name, Region and spat token are passed as arguments
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
   echo "Usage: $0 <control_plane_group_name> <region> <spat_token>"
   exit 1
 fi
 
-# Define the control plane group name and spat_token from the argument
+# Define the control plane group name and spat_token from the argument. Possible options of region are be us,eu and au
 CONTROL_PLANE_GROUP_NAME=$1
 REGION=$2
 SPAT_TOKEN=$3
@@ -19,7 +19,7 @@ if [ ! -f "$CERT_PATH" ] || [ ! -f "$KEY_PATH" ]; then
   exit 1
 fi
 
-# Define the API URL with parameterized control plane group ID
+# Define the API URL with parameterized control plane group ID and Region
 API_URL="https://$REGION.api.konghq.com/v2/control-planes/?filter%5Bname%5D=$CONTROL_PLANE_GROUP_NAME"
 
 # Define the authorization token
