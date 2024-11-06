@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# Check if the Control Plane Group Name and spat token are passed as arguments
-if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <control_plane_group_name> <spat_token>"
+# Check if the Control Plane Group Name, Region and spat token are passed as arguments
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  echo "Usage: $0 <control_plane_group_name> <region> <spat_token>"
   exit 1
 fi
 
-# Define the control plane group name and spat_token from the argument
+# Define the control plane group name and spat_token from the argument. Possible options of region are be us,eu and au
 CONTROL_PLANE_GROUP_NAME=$1
-SPAT_TOKEN=$2
+REGION=$2
+SPAT_TOKEN=$3
 CERT_PATH="./KongAir_Internal_CP_Group_Internal.crt"  # Path to your .crt file
 KEY_PATH="./KongAir_Internal_CP_Group_Internal.key"    # Path to your .key file
 
@@ -18,8 +19,8 @@ if [ ! -f "$CERT_PATH" ] || [ ! -f "$KEY_PATH" ]; then
   exit 1
 fi
 
-# Define the API URL with parameterized control plane group ID
-API_URL="https://eu.api.konghq.com/v2/control-planes/?filter%5Bname%5D=$CONTROL_PLANE_GROUP_NAME"
+# Define the API URL with parameterized control plane group ID and Region
+API_URL="https://$REGION.api.konghq.com/v2/control-planes/?filter%5Bname%5D=$CONTROL_PLANE_GROUP_NAME"
 
 # Define the authorization token
 AUTH_TOKEN="$SPAT_TOKEN"
@@ -47,7 +48,7 @@ echo "Control Plane Group ID: $control_plane_group_id"
 CERT_CONTENT=$(awk '{printf "%s\\n", $0}' "$CERT_PATH")
 
 # Post the client certificate to the Kong API
-CERTIFICATE_POST_URL="https://eu.api.konghq.com/v2/control-planes/${control_plane_group_id}/dp-client-certificates"
+CERTIFICATE_POST_URL="https://$REGION.api.konghq.com/v2/control-planes/${control_plane_group_id}/dp-client-certificates"
 
 curl --request POST \
   --url "$CERTIFICATE_POST_URL" \
