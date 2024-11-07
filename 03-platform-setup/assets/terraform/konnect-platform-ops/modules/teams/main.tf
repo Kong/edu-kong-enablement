@@ -43,7 +43,7 @@ resource "konnect_team_role" "kong_air_internal_cp_viewer" {
 # External Developers Team
 
 resource "konnect_team" "kong_air_external_devs" {
-  description = "Allow read-only access to all entities in the external control plane"
+  description = "Allow managing the external control plane configurations"
   name        = "Kong Air External Developers"
 }
 
